@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UserRequest;
+use App\Models\User;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\Role;
 class UserController extends Controller
 {
 
@@ -14,9 +18,36 @@ class UserController extends Controller
     {
         return "hola login";
     }
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        return "hola register";
+        $validatedData = $request->validated();
+
+        $user = new User([
+            'name' => $validatedData['name'],
+            'lastname' => $validatedData['lastname'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'role_id' => $validatedData['user_type'] == 'alumno' ? 2 : 1,
+        ]);
+    
+        $user->save();
+        $user_id = $user->id;
+
+        if ($validatedData['user_type'] === 'alumno') {
+            $student = new Student([
+                'user_id' => $user_id,
+                'generation' => $validatedData['generation'],
+            ]);
+            $student->save();
+        } elseif ($validatedData['user_type'] === 'maestro') {
+            $teacher = new Teacher([
+                'user_id' => $user_id,
+                'address' => $validatedData['address'],
+            ]);
+            $teacher->save();
+        }
+
+        return $request;
     }
     /**
      * Display a listing of the resource.

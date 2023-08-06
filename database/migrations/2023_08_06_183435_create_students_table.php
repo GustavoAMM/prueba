@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('generation');
-            $table->string('enrollment');
             $table->timestamps();
         });
     }

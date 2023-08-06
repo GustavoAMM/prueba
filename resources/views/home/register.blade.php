@@ -11,18 +11,30 @@
             <div>
                 <label for="name" class="block mb-1">Nombre(s):</label>
                 <input type="text" id="name" name="name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                @error('name')
+                <div class="text-red-600 text-sm">{{ $message }}</div>
+                @enderror
             </div>
             <div>
-                <label for="last_name" class="block mb-1">Apellidos:</label>
-                <input type="text" id="last_name" name="last_name" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                <label for="lastname" class="block mb-1">Apellidos:</label>
+                <input type="text" id="lastname" name="lastname" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                @error('lastname')
+                <div class="text-red-600 text-sm">{{ $message }}</div>
+                @enderror
             </div>
             <div>
                 <label for="email" class="block mb-1">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                @error('email')
+                <div class="text-red-600 text-sm">{{ $message }}</div>
+                @enderror
             </div>
             <div>
                 <label for="password" class="block mb-1">Contraseña:</label>
                 <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+                @error('password')
+                <div class="text-red-600 text-sm">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="mt-4 text-center">
@@ -35,14 +47,24 @@
                 <input type="radio" class="form-radio" name="user_type" value="maestro" id="maestroRadio">
                 <span class="ml-2">Maestro</span>
             </label>
+            @error('user_type')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
+
         </div>
         <div class="mt-4" id="generacion" style="display: none;">
             <label for="generation" class="block mb-1">Generación:</label>
             <input type="text" id="generation" name="generation" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            @error('generation')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mt-4" id="direccion" style="display: none;">
             <label for="address" class="block mb-1">Dirección:</label>
             <input type="text" id="address" name="address" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            @error('address')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
         </div>
         <button type="submit" class="bg-blue-500 w-full text-white py-2 px-4 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring">Registrarse</button>
     </form>
