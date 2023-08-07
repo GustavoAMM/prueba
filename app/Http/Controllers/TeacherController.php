@@ -14,7 +14,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        // usuario autenticado
+        $user = auth()->user();
         $students = Student::all();
         return view('teacher.index', compact('user', 'students'));
         //return view('teacher.index');
