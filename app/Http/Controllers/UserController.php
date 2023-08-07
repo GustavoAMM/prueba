@@ -42,8 +42,9 @@ class UserController extends Controller
             ]);
         }
     }
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
+        $request->validated();
 
         $user = new User([
             'name' => $request['name'],

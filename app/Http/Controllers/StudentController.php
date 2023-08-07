@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Student;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StudentRequest;
+
 
 class StudentController extends Controller
 {
@@ -20,8 +22,9 @@ class StudentController extends Controller
         return view('student.index', compact('user', 'estudiante'));
     }
 
-    public function register(Request $request)
+    public function register(StudentRequest $request)
     {
+        $request->validated();
         $user = new User([
             'name' => $request['name'],
             'lastname' => $request['lastname'],

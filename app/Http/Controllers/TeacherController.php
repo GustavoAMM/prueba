@@ -6,6 +6,7 @@ use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
+use App\Http\Requests\UpdateRequest;
 
 class TeacherController extends Controller
 {
@@ -59,8 +60,9 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StudentRequest $request, string $id)
+    public function update(UpdateRequest $request, string $id)
 {
+    // validar datos
     $request->validated();
     $student = Student::find($id);
     $user = $student->user;
