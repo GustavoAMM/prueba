@@ -4,19 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Teacher;
-use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
+
 class UserController extends Controller
 {
 
     /**
      * Login a user.
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        return "hola login";
+        try {
+            $data = $request->validated();
+
+            if (Auth::attempt($data)) {
+                $user = Auth::user();
+
+                if ($user->role_id == 1) {
+                    return redirect()->intended('teachers');
+                } elseif ($user->role_id == 2) {
+                    return redirect()->intended('students');
+                }
+            }
+
+            return back()->withErrors([
+                'data-error' => 'Credenciales incorrectas',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error al iniciar sesión',
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
     public function register(UserRequest $request)
     {
@@ -29,7 +52,7 @@ class UserController extends Controller
             'password' => bcrypt($validatedData['password']),
             'role_id' => $validatedData['user_type'] == 'alumno' ? 2 : 1,
         ]);
-    
+
         $user->save();
         $user_id = $user->id;
 

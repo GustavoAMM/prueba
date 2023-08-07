@@ -27,3 +27,13 @@ Route::get('/register', function () {
 Route::post('/login', [UserController::class, 'login'])->name('login');
 // Ruta para el registro de usuarios
 Route::post('/register', [UserController::class, 'register'])->name('register');
+
+// Ruta para la vista de estudiantes
+Route::get('/students', function () {
+    return view('student.index');
+})->name('students');
+
+// Ruta para la vista de maestros
+Route::get('/teachers', function () {
+    return view('teacher.index');
+})->name('teachers');
