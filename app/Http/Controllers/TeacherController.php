@@ -26,7 +26,7 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('teacher.newStudent');
     }
 
     /**
@@ -34,7 +34,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
     }
 
     /**

@@ -42,42 +42,43 @@ class UserController extends Controller
             ]);
         }
     }
-    public function register(UserRequest $request)
+    public function register(Request $request)
     {
-        $validatedData = $request->validated();
 
         $user = new User([
-            'name' => $validatedData['name'],
-            'lastname' => $validatedData['lastname'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'id_role' => $validatedData['user_type'] == 'alumno' ? 2 : 1,
+            'name' => $request['name'],
+            'lastname' => $request['lastname'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'id_role' => $request['user_type'] == 'alumno' ? 2 : 1,
         ]);
 
         $user->save();
         $user_id = $user->id;
 
-        if ($validatedData['user_type'] === 'alumno') {
+        if ($request['user_type'] === 'alumno') {
             $student = new Student([
                 'user_id' => $user_id,
                 'enrollment' => '000' . $user_id,
-                'classroom' => $validatedData['classroom'],
+                'classroom' => $request['classroom'],
                 'final_grade' => 00.00,
-                'generation' => $validatedData['generation'],
+                'generation' => $request['generation'],
             ]);
             $student->save();
-        } elseif ($validatedData['user_type'] === 'maestro') {
+            return redirect('/');
+
+        } elseif ($request['user_type'] === 'maestro') {
             $teacher = new Teacher([
                 'user_id' => $user_id,
-                'address' => $validatedData['address'],
-                'phone' => $validatedData['phone'],
-                'subject' => $validatedData['subject'],
+                'address' => $request['address'],
+                'phone' => $request['phone'],
+                'subject' => $request['subject'],
                 'seniority' => 'nuevo ingreso',
             ]);
             $teacher->save();
+        return redirect('/');
         }
 
-        return $request;
     }
 
     public function logout()

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\User;
 use App\Models\Student;
 
@@ -18,6 +19,31 @@ class StudentController extends Controller
         $estudiante = Student::where('user_id', $user->id)->first();
         return view('student.index', compact('user', 'estudiante'));
     }
+
+    public function register(Request $request)
+    {
+        $user = new User([
+            'name' => $request['name'],
+            'lastname' => $request['lastname'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+            'id_role' => 2,
+        ]);
+    
+        $user->save();
+        $user_id = $user->id;
+    
+        $student = new Student([
+            'generation' => $request['generation'],
+            'classroom' => $request['classroom'],
+            'enrollment' => '000' . $user_id,
+            'final_grade' => 00.00,
+            'user_id' => $user_id,
+        ]);
+        $student->save();
+        return redirect()->intended('teachers');
+    }
+    
 
     /**
      * Show the form for creating a new resource.

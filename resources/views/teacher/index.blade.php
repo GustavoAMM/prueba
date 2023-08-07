@@ -5,7 +5,10 @@
 @section('content')
 <div class="flex justify-center items-center bg-gray-100">
     <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-8 space-y-6">
-        <h1 class="text-3xl font-bold text-center mb-6">!Bienvenido, Maestro {{$user->name}}!</h1>
+        <h1 class="text-3xl font-bold text-center mb-6">¡Bienvenido, Maestro {{$user->name}}!</h1>
+        <div class="mb-4">
+            <a href="{{ route('student.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">Nuevo Alumno</a>
+        </div>
         <h2 class="text-xl font-semibold mb-4">Estudiantes:</h2>
         <table class="w-full border-collapse">
             <thead>
