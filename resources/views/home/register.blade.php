@@ -66,6 +66,27 @@
             <div class="text-red-600 text-sm">{{ $message }}</div>
             @enderror
         </div>
+        <div class="mt-4" id="phone" style="display: none;">
+            <label for="phone" class="block mb-1">Teléfono:</label>
+            <input type="text" id="phone" name="phone" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            @error('phone')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mt-4" id="materia" style="display: none;">
+            <label for="subject" class="block mb-1">Materia:</label>
+            <input type="text" id="subject" name="subject" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            @error('subject')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mt-4" id="aula" style="display: none;">
+            <label for="classroom" class="block mb-1">Aula:</label>
+            <input type="text" id="classroom" name="classroom" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            @error('classroom')
+            <div class="text-red-600 text-sm">{{ $message }}</div>
+            @enderror
+        </div>
         <button type="submit" class="bg-blue-500 w-full text-white py-2 px-4 rounded-lg mt-4 hover:bg-blue-600 focus:outline-none focus:ring">Registrarse</button>
     </form>
     <div class="mt-4 text-center">
@@ -77,15 +98,24 @@
     const maestroRadio = document.getElementById('maestroRadio');
     const generacionInput = document.getElementById('generacion');
     const direccionInput = document.getElementById('direccion');
+    const phoneInput = document.getElementById('phone');
+    const materiaInput = document.getElementById('materia');
+    const classroomInput = document.getElementById('aula');
 
     alumnoRadio.addEventListener('change', () => {
         generacionInput.style.display = alumnoRadio.checked ? 'block' : 'none';
         direccionInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        phoneInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        materiaInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        classroomInput.style.display = alumnoRadio.checked ? 'block' : 'none';
     });
 
     maestroRadio.addEventListener('change', () => {
         generacionInput.style.display = alumnoRadio.checked ? 'block' : 'none';
         direccionInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        phoneInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        materiaInput.style.display = maestroRadio.checked ? 'block' : 'none';
+        classroomInput.style.display = alumnoRadio.checked ? 'block' : 'none';
     });
 </script>
 @endsection

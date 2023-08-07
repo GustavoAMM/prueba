@@ -29,6 +29,9 @@ class UserRequest extends FormRequest
             'user_type' => 'required|in:alumno,maestro',
             'generation' => 'required_if:user_type,alumno',
             'address' => 'required_if:user_type,maestro',
+            'phone' => 'required_if:user_type,maestro',
+            'subject' => 'required_if:user_type,maestro',
+            'classroom' => 'required_if:user_type,maestro',
         ];
     }
 }

@@ -24,9 +24,10 @@ class UserController extends Controller
             if (Auth::attempt($data)) {
                 $user = Auth::user();
 
-                if ($user->role_id == 1) {
+                if ($user->id_role == 1) {
+                    // retornar la vista
                     return redirect()->intended('teachers');
-                } elseif ($user->role_id == 2) {
+                } elseif ($user->id_role == 2) {
                     return redirect()->intended('students');
                 }
             }
@@ -50,7 +51,7 @@ class UserController extends Controller
             'lastname' => $validatedData['lastname'],
             'email' => $validatedData['email'],
             'password' => bcrypt($validatedData['password']),
-            'role_id' => $validatedData['user_type'] == 'alumno' ? 2 : 1,
+            'id_role' => $validatedData['user_type'] == 'alumno' ? 2 : 1,
         ]);
 
         $user->save();
@@ -59,6 +60,9 @@ class UserController extends Controller
         if ($validatedData['user_type'] === 'alumno') {
             $student = new Student([
                 'user_id' => $user_id,
+                'enrollment' => '000' . $user_id,
+                'classroom' => $validatedData['classroom'],
+                'final_grade' => 00.00,
                 'generation' => $validatedData['generation'],
             ]);
             $student->save();
@@ -66,6 +70,9 @@ class UserController extends Controller
             $teacher = new Teacher([
                 'user_id' => $user_id,
                 'address' => $validatedData['address'],
+                'phone' => $validatedData['phone'],
+                'subject' => $validatedData['subject'],
+                'seniority' => 'nuevo ingreso',
             ]);
             $teacher->save();
         }

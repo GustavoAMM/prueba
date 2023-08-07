@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -13,7 +15,7 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Ruta para la vista de inicio
+// Ruta para la vista de login
 Route::get('/', function () {
     return view('home.login');
 })->name('home');
@@ -23,17 +25,17 @@ Route::get('/register', function () {
     return view('home.register');
 })->name('register');
 
-// Ruta para el login de usuarios
+// Ruta para subir login de usuarios
 Route::post('/login', [UserController::class, 'login'])->name('login');
-// Ruta para el registro de usuarios
+// Ruta para subir registro de usuarios
 Route::post('/register', [UserController::class, 'register'])->name('register');
 
-// Ruta para la vista de estudiantes
-Route::get('/students', function () {
-    return view('student.index');
-})->name('students');
 
-// Ruta para la vista de maestros
-Route::get('/teachers', function () {
-    return view('teacher.index');
-})->name('teachers');
+// Ruta para ver las notas de TODOS los estudiantes (solo para maestros)
+Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers');
+// Ruta para ver la notas de UN SOLO estudiante (solo para maestros)
+Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('student.show');
+// Ruta para el form y editar las notas de UN SOLO ESTUDIANTE (solo para maestros)
+Route::get('/teachers/{id}/edit', [TeacherController::class, 'edit'])->name('student.edit');
+// Ruta para subir las  nuevas notas de un estudiante (solo para maestros)
+Route::put('/teachers/{id}', [TeacherController::class, 'update'])->name('student.update');
