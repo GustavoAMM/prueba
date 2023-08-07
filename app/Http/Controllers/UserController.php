@@ -79,6 +79,12 @@ class UserController extends Controller
 
         return $request;
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('home');
+    }
     /**
      * Display a listing of the resource.
      */

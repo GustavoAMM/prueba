@@ -39,3 +39,8 @@ Route::get('/teachers/{id}', [TeacherController::class, 'show'])->name('student.
 Route::get('/teachers/{id}/edit', [TeacherController::class, 'edit'])->name('student.edit');
 // Ruta para subir las  nuevas notas de un estudiante (solo para maestros)
 Route::put('/teachers/{id}', [TeacherController::class, 'update'])->name('student.update');
+// Ruta para cerrar sesión
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+// Ruta para ver mi perfil (solo para estudiantes)
+Route::get('/students', [StudentController::class, 'index'])->name('students');
